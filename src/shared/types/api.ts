@@ -4,7 +4,9 @@ export interface User {
   email: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ApiResponse<T = any> {
+  // Generic type with flexible default
   success: boolean;
   data?: T;
   error?: string;

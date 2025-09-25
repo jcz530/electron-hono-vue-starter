@@ -6,10 +6,10 @@ export const useApi = () => {
   const loading = ref(false);
   const error = ref<string>('');
 
-  const apiCall = async <T = any>(
+  const apiCall = async <T = unknown>(
     method: ApiMethod,
     path: string,
-    body?: any
+    body?: unknown
   ): Promise<T | null> => {
     try {
       loading.value = true;

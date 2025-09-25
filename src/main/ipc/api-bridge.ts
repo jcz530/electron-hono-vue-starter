@@ -14,7 +14,8 @@ export const setupAPIBridge = (): void => {
       }: {
         method: ApiMethod;
         path: string;
-        body?: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        body?: any; // IPC body can be any JSON-serializable data
       }
     ) => {
       try {
