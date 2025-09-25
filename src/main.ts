@@ -1,11 +1,52 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
+import { Hono } from 'hono';
+import { serve } from '@hono/node-server';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
 }
+
+// Create Hono API server
+const api = new Hono();
+
+api.get('/api/hello', (c) => {
+  return c.json({ message: 'Hello from Hono!' });
+});
+
+api.get('/api/users', (c) => {
+  return c.json([
+    { id: 1, name: 'John Doe', email: 'john@example.com' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+  ]);
+});
+
+// Start API server
+let apiServer: any;
+const startApiServer = async () => {
+  apiServer = serve({
+    fetch: api.fetch,
+    port: 3001,
+  });
+  console.log('API server running on http://localhost:3001');
+};
+
+// IPC handlers for API communication
+ipcMain.handle('api-call', async (event, { method, path, body }) => {
+  try {
+    const url = `http://localhost:3001${path}`;
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+});
 
 const createWindow = () => {
   // Create the browser window.
@@ -33,7 +74,10 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', async () => {
+  await startApiServer();
+  createWindow();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
