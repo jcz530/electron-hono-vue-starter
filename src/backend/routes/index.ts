@@ -5,14 +5,14 @@ import type { HelloResponse } from '../../shared/types/api';
 
 const api = new Hono();
 
-const hello: ApiHandler<HelloResponse> = (c) => {
+const hello: ApiHandler<HelloResponse> = c => {
   return c.json({
     message: 'Hello from Hono! 🔥',
   });
 };
 
 // Health check endpoint
-const health: ApiHandler = (c) => {
+const health: ApiHandler = c => {
   return c.json({
     status: 'ok',
     timestamp: new Date().toISOString(),

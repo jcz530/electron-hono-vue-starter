@@ -3,26 +3,9 @@
     <section class="api-demo">
       <h2>API Demo</h2>
       <div class="buttons">
-        <Button
-          :loading="loading"
-          @click="fetchHello"
-        >
-          Test Hello API
-        </Button>
-        <Button
-          :loading="loading"
-          @click="fetchUsers"
-          variant="secondary"
-        >
-          Fetch Users
-        </Button>
-        <Button
-          :loading="loading"
-          @click="fetchHealth"
-          size="small"
-        >
-          Health Check
-        </Button>
+        <Button :loading="loading" @click="fetchHello"> Test Hello API </Button>
+        <Button :loading="loading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
+        <Button :loading="loading" @click="fetchHealth" size="small"> Health Check </Button>
       </div>
 
       <div v-if="error" class="error">

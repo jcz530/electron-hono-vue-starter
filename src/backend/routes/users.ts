@@ -5,12 +5,12 @@ import type { User } from '../../shared/types/api';
 
 const users = new Hono();
 
-const getUsers: ApiHandler<User[]> = (c) => {
+const getUsers: ApiHandler<User[]> = c => {
   const allUsers = userService.getUsers();
   return c.json(allUsers);
 };
 
-const getUserById: ApiHandler<User> = (c) => {
+const getUserById: ApiHandler<User> = c => {
   const id = parseInt(c.req.param('id'));
   const user = userService.getUserById(id);
 
@@ -21,7 +21,7 @@ const getUserById: ApiHandler<User> = (c) => {
   return c.json(user);
 };
 
-const createUser: ApiHandler<User> = async (c) => {
+const createUser: ApiHandler<User> = async c => {
   const userData = await c.req.json();
 
   if (!userData.name || !userData.email) {

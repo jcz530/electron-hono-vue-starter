@@ -1,7 +1,7 @@
 import type { ApiMethod } from './api';
 
 export interface ElectronAPI {
-  apiCall: (method: ApiMethod, path: string, body?: any) => Promise<any>;
+  apiCall: (method: ApiMethod, path: string, body?: unknown) => Promise<unknown>;
 }
 
 declare global {

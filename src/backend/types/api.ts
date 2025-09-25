@@ -9,4 +9,6 @@ export interface UserService {
   createUser(user: Omit<User, 'id'>): User;
 }
 
-export type ApiHandler<T = any> = (c: HonoContext) => Response | Promise<Response> | ApiResponse<T> | Promise<ApiResponse<T>>;
+export type ApiHandler<T = unknown> = (
+  c: HonoContext
+) => Response | Promise<Response> | ApiResponse<T> | Promise<ApiResponse<T>>;

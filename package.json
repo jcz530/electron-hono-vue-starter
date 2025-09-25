@@ -9,7 +9,11 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/**/*.{ts,tsx,vue,js,json,css,md}",
+    "format:check": "prettier --check src/**/*.{ts,tsx,vue,js,json,css,md}",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": {
@@ -28,12 +32,17 @@
     "@electron-forge/plugin-vite": "^7.9.0",
     "@electron/fuses": "^1.8.0",
     "@types/electron-squirrel-startup": "^1.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
     "electron": "38.1.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "typescript": "~4.5.4",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-vue": "^10.5.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "typescript": "^5.9.2",
     "vite": "^5.4.20"
   },
   "dependencies": {

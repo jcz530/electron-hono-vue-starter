@@ -1,11 +1,6 @@
 <template>
   <button
-    :class="[
-      'btn',
-      `btn--${variant}`,
-      `btn--${size}`,
-      { 'btn--disabled': disabled || loading }
-    ]"
+    :class="['btn', `btn--${variant}`, `btn--${size}`, { 'btn--disabled': disabled || loading }]"
     :disabled="disabled || loading"
     @click="$emit('click', $event)"
   >
@@ -109,7 +104,11 @@ defineEmits<{
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
