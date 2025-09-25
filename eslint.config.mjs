@@ -25,7 +25,10 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      }],
       '@typescript-eslint/no-explicit-any': 'warn',
       'prettier/prettier': 'error',
     },
@@ -51,7 +54,10 @@ export default [
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/no-v-html': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      }],
       'prettier/prettier': 'error',
     },
   },
@@ -90,6 +96,15 @@ export default [
         MouseEvent: 'readonly',
         HTMLElement: 'readonly',
       },
+    },
+  },
+
+  // Type definition files - more lenient rules
+  {
+    files: ['**/*types*.ts', '**/types/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
     },
   },
 

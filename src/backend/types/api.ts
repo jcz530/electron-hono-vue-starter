@@ -5,10 +5,10 @@ export type HonoContext = Context;
 
 export interface UserService {
   getUsers(): User[];
-  getUserById(id: number): User | undefined;
-  createUser(user: Omit<User, 'id'>): User;
+  getUserById(_id: number): User | undefined;
+  createUser(_user: Omit<User, 'id'>): User;
 }
 
 export type ApiHandler<T = unknown> = (
-  c: HonoContext
+  _c: HonoContext
 ) => Response | Promise<Response> | ApiResponse<T> | Promise<ApiResponse<T>>;
