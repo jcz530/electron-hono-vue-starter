@@ -11,8 +11,8 @@
     "publish": "electron-forge publish",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "format": "prettier --write src/**/*.{ts,tsx,vue,js,json,css,md}",
-    "format:check": "prettier --check src/**/*.{ts,tsx,vue,js,json,css,md}",
+    "format": "prettier --write \"src/**/*.{ts,vue,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,vue,css}\"",
     "type-check": "tsc --noEmit"
   },
   "keywords": [],
@@ -55,6 +55,7 @@
     "electron-squirrel-startup": "^1.0.1",
     "hono": "^4.9.8",
     "lucide-vue-next": "^0.544.0",
+    "reka-ui": "^2.5.1",
     "shadcn-vue": "^2.2.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",

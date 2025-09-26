@@ -1,30 +1,6 @@
-<template>
-  <div class="home">
-    <section class="api-demo">
-      <h2>API Demo</h2>
-      <div class="buttons">
-        <Button :loading="loading" @click="fetchHello"> Test Hello API </Button>
-        <Button :loading="loading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
-        <Button :loading="loading" @click="fetchHealth" size="small"> Health Check </Button>
-      </div>
-
-      <div v-if="error" class="error">
-        <h3>Error:</h3>
-        <p>{{ error }}</p>
-        <Button size="small" @click="clearError">Clear</Button>
-      </div>
-
-      <div v-if="apiResponse" class="response">
-        <h3>API Response:</h3>
-        <pre>{{ JSON.stringify(apiResponse, null, 2) }}</pre>
-      </div>
-    </section>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
-import Button from '../components/common/Button.vue';
+import Button from '../components/ui/button/Button.vue';
 import { useApi } from '../composables/useApi';
 import { API_ROUTES } from '../../shared/constants';
 import type { HelloResponse, User } from '../../shared/types/api';
@@ -47,6 +23,29 @@ const fetchHealth = async () => {
   apiResponse.value = response;
 };
 </script>
+<template>
+  <div class="home">
+    <section class="api-demo">
+      <h2>API Demo</h2>
+      <div class="buttons">
+        <Button :loading="loading" @click="fetchHello"> Test Hello API </Button>
+        <Button :loading="loading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
+        <Button :loading="loading" @click="fetchHealth" size="sm"> Health Check </Button>
+      </div>
+
+      <div v-if="error" class="error">
+        <h3>Error:</h3>
+        <p>{{ error }}</p>
+        <Button size="sm" @click="clearError">Clear</Button>
+      </div>
+
+      <div v-if="apiResponse" class="response">
+        <h3>API Response:</h3>
+        <pre>{{ JSON.stringify(apiResponse, null, 2) }}</pre>
+      </div>
+    </section>
+  </div>
+</template>
 
 <style scoped>
 .home {
