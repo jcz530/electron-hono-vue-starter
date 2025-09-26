@@ -1,6 +1,9 @@
 import { BrowserWindow } from 'electron';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { APP_CONFIG } from '../shared/constants';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const createWindow = (): BrowserWindow => {
   const mainWindow = new BrowserWindow({
@@ -9,7 +12,7 @@ export const createWindow = (): BrowserWindow => {
     minWidth: APP_CONFIG.WINDOW_SIZE.minWidth,
     minHeight: APP_CONFIG.WINDOW_SIZE.minHeight,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, '../preload/preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -23,10 +26,10 @@ export const createWindow = (): BrowserWindow => {
   });
 
   // Load the appropriate content
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:5173');
   } else {
-    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
   }
 
   // Open DevTools in development

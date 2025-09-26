@@ -1,5 +1,6 @@
 .claude
 database.db
+dist
 
 # Logs
 logs
