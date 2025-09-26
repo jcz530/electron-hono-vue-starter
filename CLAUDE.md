@@ -4,7 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- `npm run start` - Start the Electron app in development mode
+- `npm run dev` - Start the Electron app in development mode with hot reload
+- `npm run start` - Start the Electron app from built files (production-like)
 - `npm run lint` - Run ESLint on the source code
 - `npm run lint:fix` - Run ESLint and automatically fix issues
 - `npm run format` - Format code with Prettier

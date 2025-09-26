@@ -1,38 +1,49 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import Button from '../components/ui/button/Button.vue';
-import { useApi } from '../composables/useApi';
-import { API_ROUTES } from '../../shared/constants';
-import type { HelloResponse, User } from '../../shared/types/api';
+import { useQueries } from '../composables/useQueries';
 
-const { loading, error, apiCall, clearError } = useApi();
-const apiResponse = ref<any>(null);
+const { useHelloQuery, useUsersQuery, useHealthQuery } = useQueries();
 
-const fetchHello = async () => {
-  const response = await apiCall<HelloResponse>('GET', API_ROUTES.HELLO);
-  apiResponse.value = response;
-};
+const helloQuery = useHelloQuery();
+const usersQuery = useUsersQuery();
+const healthQuery = useHealthQuery();
 
-const fetchUsers = async () => {
-  const response = await apiCall<User[]>('GET', API_ROUTES.USERS);
-  apiResponse.value = response;
-};
+// Computed properties for unified state management
+const isLoading = computed(
+  () => helloQuery.isFetching.value || usersQuery.isFetching.value || healthQuery.isFetching.value
+);
 
-const fetchHealth = async () => {
-  const response = await apiCall('GET', '/api/health');
-  apiResponse.value = response;
+const error = computed(
+  () => helloQuery.error.value || usersQuery.error.value || healthQuery.error.value
+);
+
+const apiResponse = computed(
+  () => helloQuery.data.value || usersQuery.data.value || healthQuery.data.value
+);
+
+const fetchHello = () => helloQuery.refetch();
+const fetchUsers = () => usersQuery.refetch();
+const fetchHealth = () => healthQuery.refetch();
+
+const clearError = () => {
+  helloQuery.error.value = null;
+  usersQuery.error.value = null;
+  healthQuery.error.value = null;
 };
 </script>
 <template>
   <div class="home">
     <section class="api-demo">
-      <h2>API Demo</h2>
-      <div class="buttons">
-        <Button :loading="loading" @click="fetchHello"> Test Hello API </Button>
-        <Button :loading="loading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
-        <Button :loading="loading" @click="fetchHealth" size="sm"> Health Check </Button>
+      <h2 class="text-2xl">API Demo</h2>
+      <div class="flex gap-4">
+        <Button :loading="isLoading" @click="fetchHello"> Test Hello API </Button>
+        <Button :loading="isLoading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
+        <Button :loading="isLoading" @click="fetchHealth" size="sm" variant="destructive">
+          Health Check
+        </Button>
         <router-link to="/about">
-          <Button variant="outline">About Page</Button>
+          <Button variant="link">About Page</Button>
         </router-link>
       </div>
 
@@ -50,80 +61,4 @@ const fetchHealth = async () => {
   </div>
 </template>
 
-<style scoped>
-.home {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.api-demo {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.api-demo h2 {
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-}
-
-.buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.response {
-  margin-top: 1rem;
-}
-
-.response h3 {
-  color: #2d3748;
-  margin-bottom: 1rem;
-}
-
-.response pre {
-  background: #f7fafc;
-  padding: 1rem;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-  overflow-x: auto;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.error {
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #fed7d7;
-  border-radius: 8px;
-  border-left: 4px solid #e53e3e;
-}
-
-.error h3 {
-  color: #c53030;
-  margin-bottom: 0.5rem;
-}
-
-.error p {
-  color: #742a2a;
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 768px) {
-  .home {
-    padding: 1rem;
-  }
-
-  .api-demo {
-    padding: 1rem;
-  }
-
-  .buttons {
-    flex-direction: column;
-  }
-}
-</style>
+<style scoped></style>

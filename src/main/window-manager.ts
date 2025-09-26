@@ -2,10 +2,22 @@ import { BrowserWindow } from 'electron';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_CONFIG } from '../shared/constants';
+import { createRequire } from 'node:module';
+
+createRequire(import.meta.url);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export const createWindow = (): BrowserWindow => {
+const checkViteDevServer = async (): Promise<boolean> => {
+  try {
+    const response = await fetch('http://localhost:5173');
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+export const createWindow = async (): Promise<BrowserWindow> => {
   const mainWindow = new BrowserWindow({
     width: APP_CONFIG.WINDOW_SIZE.width,
     height: APP_CONFIG.WINDOW_SIZE.height,
@@ -26,15 +38,13 @@ export const createWindow = (): BrowserWindow => {
   });
 
   // Load the appropriate content
-  if (process.env.NODE_ENV === 'development') {
+  const isDevServer = await checkViteDevServer();
+  if (isDevServer) {
     mainWindow.loadURL('http://localhost:5173');
+    // Open DevTools in development
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-  }
-
-  // Open DevTools in development
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.webContents.openDevTools();
   }
 
   return mainWindow;

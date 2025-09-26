@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import api from './routes';
 import { corsMiddleware } from './middleware/cors';
+import { cspMiddleware } from './middleware/csp';
 import { APP_CONFIG } from '../shared/constants';
 import { runMigrations } from '../shared/database/migrate';
 
@@ -10,6 +11,20 @@ export const createServer = () => {
 
   // Middleware
   app.use('*', corsMiddleware());
+  app.use(
+    '*',
+    cspMiddleware({
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", 'data:', 'blob:'],
+      connectSrc: ["'self'", 'localhost:*'],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    })
+  );
 
   // Request logging
   app.use('*', async (c, next) => {

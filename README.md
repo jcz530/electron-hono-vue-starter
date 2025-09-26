@@ -1,4 +1,4 @@
-# Electron + Vue + Hono Template
+# Electron + Vue + Hono Starter
 
 A modern Electron application template featuring Vue.js frontend and Hono API backend running together in a single process.
 

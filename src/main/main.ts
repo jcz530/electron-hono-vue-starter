@@ -21,7 +21,7 @@ const initialize = async (): Promise<void> => {
     setupIPC();
 
     // Create the main window
-    mainWindow = createWindow();
+    mainWindow = await createWindow();
 
     console.log('🚀 Application initialized successfully');
   } catch (error) {
@@ -40,10 +40,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On macOS, re-create a window when the dock icon is clicked
   if (BrowserWindow.getAllWindows().length === 0) {
-    mainWindow = createWindow();
+    mainWindow = await createWindow();
   }
 });
 
