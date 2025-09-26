@@ -1,19 +1,19 @@
+<script setup lang="ts">
+import Header from './components/layout/Header.vue';
+import Home from './views/Home.vue';
+</script>
+
 <template>
   <div id="app">
     <Header
       title="🚀 Electron + Hono + Vue"
       subtitle="Modern desktop app with organized architecture"
     />
-    <main>
+    <main class="bg-sky-500 pt-24">
       <Home />
     </main>
   </div>
 </template>
-
-<script setup lang="ts">
-import Header from './components/layout/Header.vue';
-import Home from './views/Home.vue';
-</script>
 
 <style>
 * {

@@ -47,9 +47,11 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",
+    "@tailwindcss/vite": "^4.1.13",
     "@vitejs/plugin-vue": "^5.2.4",
     "electron-squirrel-startup": "^1.0.1",
     "hono": "^4.9.8",
+    "tailwindcss": "^4.1.13",
     "vue": "^3.5.22"
   }
 }
