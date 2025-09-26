@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import Header from './components/layout/Header.vue';
-import Home from './views/Home.vue';
+// App now uses router-view for rendering pages
 </script>
 
 <template>
   <div id="app">
-    <Header
-      title="🚀 Electron + Hono + Vue"
-      subtitle="Modern desktop app with organized architecture"
-    />
-    <main class="bg-sky-500 pt-24">
-      <Home />
-    </main>
+    <router-view />
   </div>
 </template>
 
@@ -23,13 +16,6 @@ import Home from './views/Home.vue';
 }
 
 #app {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #2c3e50;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-main {
-  min-height: calc(100vh - 200px);
 }
 </style>

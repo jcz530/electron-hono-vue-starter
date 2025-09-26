@@ -31,6 +31,9 @@ const fetchHealth = async () => {
         <Button :loading="loading" @click="fetchHello"> Test Hello API </Button>
         <Button :loading="loading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
         <Button :loading="loading" @click="fetchHealth" size="sm"> Health Check </Button>
+        <router-link to="/about">
+          <Button variant="outline">About Page</Button>
+        </router-link>
       </div>
 
       <div v-if="error" class="error">
