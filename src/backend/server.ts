@@ -3,6 +3,7 @@ import { serve } from '@hono/node-server';
 import api from './routes';
 import { corsMiddleware } from './middleware/cors';
 import { APP_CONFIG } from '../shared/constants';
+import { runMigrations } from '../shared/database/migrate';
 
 export const createServer = () => {
   const app = new Hono();
@@ -25,6 +26,9 @@ export const createServer = () => {
 };
 
 export const startServer = async () => {
+  console.log('🔧 Running database migrations...');
+  await runMigrations();
+
   const app = createServer();
 
   const server = serve({

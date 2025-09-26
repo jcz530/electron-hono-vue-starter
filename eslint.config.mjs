@@ -64,7 +64,7 @@ export default [
 
   // Backend/Main process files - Node.js environment
   {
-    files: ['src/main/**/*.ts', 'src/backend/**/*.ts'],
+    files: ['src/main/**/*.ts', 'src/backend/**/*.ts', 'src/shared/**/*.ts', 'scripts/**/*.ts', 'drizzle.config.ts'],
     languageOptions: {
       globals: {
         __dirname: 'readonly',
