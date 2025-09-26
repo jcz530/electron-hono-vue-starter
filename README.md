@@ -2,6 +2,8 @@
 
 A modern Electron application template featuring Vue.js frontend and Hono API backend running together in a single process.
 
+Use this as a template to jump start your development and skip the setup.
+
 ## Architecture
 
 This template provides a complete development setup for building desktop applications with:
@@ -42,37 +44,41 @@ src/
 ### Installation
 
 1. Clone this repository:
+
 ```bash
 git clone <your-repo-url>
 cd <project-name>
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start development server:
+
 ```bash
 npm run start
 ```
 
 The application will launch with:
+
 - Electron window running the Vue frontend
 - Hono API server on `localhost:3001`
 - Hot reload enabled for development
 
 ## Development Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run start` | Start the Electron app in development mode |
-| `npm run lint` | Run ESLint on the source code |
-| `npm run lint:fix` | Run ESLint and automatically fix issues |
-| `npm run format` | Format code with Prettier |
-| `npm run type-check` | Run TypeScript type checking |
-| `npm run package` | Package the app for distribution |
-| `npm run make` | Build distributable packages |
+| Command              | Description                                |
+| -------------------- | ------------------------------------------ |
+| `npm run start`      | Start the Electron app in development mode |
+| `npm run lint`       | Run ESLint on the source code              |
+| `npm run lint:fix`   | Run ESLint and automatically fix issues    |
+| `npm run format`     | Format code with Prettier                  |
+| `npm run type-check` | Run TypeScript type checking               |
+| `npm run package`    | Package the app for distribution           |
+| `npm run make`       | Build distributable packages               |
 
 ## Application Flow
 
@@ -93,17 +99,11 @@ Create new route files in `src/backend/routes/` and register them in the main AP
 ### Adding Frontend Components
 
 Follow the atomic design structure:
+
 - `atoms/` - Basic UI elements
 - `molecules/` - Simple component groups
 - `organisms/` - Complex UI components
 - `pages/` - Application screens
-
-### Configuration
-
-Key configuration files:
-- `src/shared/constants/` - API routes and app configuration
-- `forge.config.js` - Electron Forge build configuration
-- `tailwind.config.js` - Tailwind CSS customization
 
 ## Building for Production
 
