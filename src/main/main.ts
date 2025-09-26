@@ -15,7 +15,7 @@ let mainWindow: BrowserWindow | null = null;
 const initialize = async (): Promise<void> => {
   try {
     // Start the API server
-    await startServer();
+    const serverInfo = await startServer();
 
     // Setup IPC communication
     setupIPC();
@@ -24,6 +24,7 @@ const initialize = async (): Promise<void> => {
     mainWindow = await createWindow();
 
     console.log('🚀 Application initialized successfully');
+    console.log(`📡 API available at ${serverInfo.baseUrl}`);
   } catch (error) {
     console.error('Failed to initialize application:', error);
     app.quit();

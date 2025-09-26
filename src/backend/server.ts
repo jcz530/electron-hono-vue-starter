@@ -3,8 +3,9 @@ import { serve } from '@hono/node-server';
 import api from './routes';
 import { corsMiddleware } from './middleware/cors';
 import { cspMiddleware } from './middleware/csp';
-import { APP_CONFIG } from '../shared/constants';
+import { APP_CONFIG, updateRuntimeConfig } from '../shared/constants';
 import { runMigrations } from '../shared/database/migrate';
+import { findAvailablePortInRange } from '../shared/utils/port-finder';
 
 export const createServer = () => {
   const app = new Hono();
@@ -44,14 +45,32 @@ export const startServer = async () => {
   console.log('🔧 Running database migrations...');
   await runMigrations();
 
+  // Find an available port
+  console.log(`🔍 Finding available port (preferred: ${APP_CONFIG.API_PORT_PREFERRED})...`);
+  const availablePort = await findAvailablePortInRange(APP_CONFIG.API_PORT_PREFERRED);
+
+  // Update runtime configuration
+  const apiBaseUrl = `http://${APP_CONFIG.API_HOST}:${availablePort}`;
+  updateRuntimeConfig({
+    API_PORT: availablePort,
+    API_BASE_URL: apiBaseUrl,
+  });
+
   const app = createServer();
 
   const server = serve({
     fetch: app.fetch,
-    port: APP_CONFIG.API_PORT,
+    port: availablePort,
+    hostname: APP_CONFIG.API_HOST,
   });
 
-  console.log(`🔥 Hono API server running on ${APP_CONFIG.API_BASE_URL}`);
+  console.log(`🔥 Hono API server running on ${apiBaseUrl}`);
 
-  return server;
+  if (availablePort !== APP_CONFIG.API_PORT_PREFERRED) {
+    console.log(
+      `ℹ️  Using port ${availablePort} instead of preferred ${APP_CONFIG.API_PORT_PREFERRED}`
+    );
+  }
+
+  return { server, port: availablePort, baseUrl: apiBaseUrl };
 };

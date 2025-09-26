@@ -1,8 +1,9 @@
 import { ipcMain } from 'electron';
 import type { ApiMethod } from '../../shared/types/api';
-import { APP_CONFIG } from '../../shared/constants';
+import { RUNTIME_CONFIG } from '../../shared/constants';
 
 export const setupAPIBridge = (): void => {
+  // Handle API calls
   ipcMain.handle(
     'api-call',
     async (
@@ -19,7 +20,7 @@ export const setupAPIBridge = (): void => {
       }
     ) => {
       try {
-        const url = `${APP_CONFIG.API_BASE_URL}${path}`;
+        const url = `${RUNTIME_CONFIG.API_BASE_URL}${path}`;
 
         const response = await fetch(url, {
           method,
@@ -40,4 +41,12 @@ export const setupAPIBridge = (): void => {
       }
     }
   );
+
+  // Handle API config requests
+  ipcMain.handle('get-api-config', () => {
+    return {
+      port: RUNTIME_CONFIG.API_PORT,
+      baseUrl: RUNTIME_CONFIG.API_BASE_URL,
+    };
+  });
 };
