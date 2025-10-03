@@ -1,28 +1,21 @@
+import { eq } from 'drizzle-orm';
+import { db, users } from '../../shared/database';
 import type { User } from '../../shared/types/api';
 import type { UserService } from '../types/api';
 
 class UserServiceImpl implements UserService {
-  private users: User[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
-  ];
-
-  getUsers(): User[] {
-    return this.users;
+  async getUsers(): Promise<User[]> {
+    return await db.select().from(users);
   }
 
-  getUserById(id: number): User | undefined {
-    return this.users.find(user => user.id === id);
+  async getUserById(id: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+    return result[0];
   }
 
-  createUser(userData: Omit<User, 'id'>): User {
-    const newUser: User = {
-      id: Math.max(...this.users.map(u => u.id)) + 1,
-      ...userData,
-    };
-    this.users.push(newUser);
-    return newUser;
+  async createUser(userData: Omit<User, 'id'>): Promise<User> {
+    const result = await db.insert(users).values(userData).returning();
+    return result[0];
   }
 }
 

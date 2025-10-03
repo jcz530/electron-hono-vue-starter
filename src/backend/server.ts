@@ -1,11 +1,11 @@
-import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
-import api from './routes';
-import { corsMiddleware } from './middleware/cors';
-import { cspMiddleware } from './middleware/csp';
+import { Hono } from 'hono';
 import { APP_CONFIG, updateRuntimeConfig } from '../shared/constants';
 import { runMigrations } from '../shared/database/migrate';
 import { findAvailablePortInRange } from '../shared/utils/port-finder';
+import { corsMiddleware } from './middleware/cors';
+import { cspMiddleware } from './middleware/csp';
+import api from './routes';
 
 export const createServer = () => {
   const app = new Hono();
@@ -44,6 +44,10 @@ export const createServer = () => {
 export const startServer = async () => {
   console.log('🔧 Running database migrations...');
   await runMigrations();
+
+  console.log('🌱 Seeding database...');
+  const { seedDatabase } = await import('../shared/database/seed');
+  await seedDatabase();
 
   // Find an available port
   console.log(`🔍 Finding available port (preferred: ${APP_CONFIG.API_PORT_PREFERRED})...`);

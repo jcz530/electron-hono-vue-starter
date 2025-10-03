@@ -4,13 +4,13 @@ import { userService } from '../services/user-service';
 const users = new Hono();
 
 users
-  .get('/', c => {
-    const allUsers = userService.getUsers();
+  .get('/', async c => {
+    const allUsers = await userService.getUsers();
     return c.json(allUsers);
   })
-  .get('/:id', c => {
-    const id = parseInt(c.req.param('id'));
-    const user = userService.getUserById(id);
+  .get('/:id', async c => {
+    const id = c.req.param('id');
+    const user = await userService.getUserById(id);
 
     if (!user) {
       return c.json({ error: 'User not found' }, 404);
@@ -26,7 +26,7 @@ users
       return c.json({ error: 'Name and email are required' }, 400);
     }
 
-    const newUser = userService.createUser(userData);
+    const newUser = await userService.createUser(userData);
     return c.json(newUser, 201);
   });
 
