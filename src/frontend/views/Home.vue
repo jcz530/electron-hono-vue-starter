@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import ViewToggle from '../components/atoms/ViewToggle.vue';
+import UsersTable from '../components/organisms/UsersTable.vue';
 import Button from '../components/ui/button/Button.vue';
 import { useQueries } from '../composables/useQueries';
-import UsersTable from '../components/organisms/UsersTable.vue';
 
 const { useHelloQuery, useUsersQuery, useHealthQuery } = useQueries();
+const viewMode = ref<'table' | 'card'>('table');
 
 const helloQuery = useHelloQuery();
 const usersQuery = useUsersQuery();
@@ -22,7 +24,6 @@ const error = computed(
 const apiResponse = computed(() => helloQuery.data.value || healthQuery.data.value);
 
 const fetchHello = () => helloQuery.refetch();
-const fetchUsers = () => usersQuery.refetch();
 const fetchHealth = () => healthQuery.refetch();
 
 const clearError = () => {
@@ -37,7 +38,6 @@ const clearError = () => {
       <h2 class="text-2xl">API Demo</h2>
       <div class="flex gap-4">
         <Button :loading="isLoading" @click="fetchHello"> Test Hello API </Button>
-        <Button :loading="isLoading" @click="fetchUsers" variant="secondary"> Fetch Users </Button>
         <Button :loading="isLoading" @click="fetchHealth" size="sm" variant="destructive">
           Health Check
         </Button>
@@ -59,8 +59,15 @@ const clearError = () => {
     </section>
 
     <section class="users-table-section mt-8">
-      <h2 class="mb-4 text-2xl">Users</h2>
-      <UsersTable :users="usersQuery.data.value || []" :is-loading="usersQuery.isFetching.value" />
+      <div class="mb-4 flex items-center justify-between">
+        <h2 class="text-2xl">Users</h2>
+        <ViewToggle :current-view="viewMode" @update:view="viewMode = $event" />
+      </div>
+      <UsersTable
+        :users="usersQuery.data.value || []"
+        :is-loading="usersQuery.isFetching.value"
+        :view-mode="viewMode"
+      />
     </section>
   </div>
 </template>

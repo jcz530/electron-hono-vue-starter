@@ -8,10 +8,12 @@ import {
 import type { User } from '../../../shared/types/api';
 import TableHeader from '../molecules/TableHeader.vue';
 import TableRow from '../molecules/TableRow.vue';
+import UserCard from '../molecules/UserCard.vue';
 
 const props = defineProps<{
   users: User[];
   isLoading?: boolean;
+  viewMode?: 'table' | 'card';
 }>();
 
 const columnHelper = createColumnHelper<User>();
@@ -48,11 +50,18 @@ const table = useVueTable({
     <div v-else-if="users.length === 0" class="py-8 text-center">
       <p class="text-gray-500">No users found</p>
     </div>
-    <table v-else class="w-full border-collapse">
-      <TableHeader :header-groups="table.getHeaderGroups()" />
-      <tbody>
-        <TableRow v-for="row in table.getRowModel().rows" :key="row.id" :row="row" />
-      </tbody>
-    </table>
+    <div v-else>
+      <!-- Card View -->
+      <div v-if="viewMode === 'card'" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <UserCard v-for="user in users" :key="user.id" :user="user" />
+      </div>
+      <!-- Table View -->
+      <table v-else class="w-full border-collapse">
+        <TableHeader :header-groups="table.getHeaderGroups()" />
+        <tbody>
+          <TableRow v-for="row in table.getRowModel().rows" :key="row.id" :row="row" />
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
