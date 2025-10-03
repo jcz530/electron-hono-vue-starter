@@ -1,17 +1,45 @@
 <script setup lang="ts">
-import Header from '../components/layout/Header.vue';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '../components/ui/breadcrumb';
+import { Separator } from '../components/ui/separator';
+import { SidebarProvider, SidebarInset, SidebarTrigger } from '../components/ui/sidebar';
+import AppSidebar from '../components/nav/organisms/AppSidebar.vue';
 </script>
 
 <template>
-  <div class="layout">
-    <Header
-      title="🚀 Electron + Hono + Vue"
-      subtitle="Modern desktop app with organized architecture"
-    />
-    <main class="main-content">
-      <router-view />
-    </main>
-  </div>
+  <SidebarProvider>
+    <AppSidebar />
+    <SidebarInset>
+      <header class="flex h-16 shrink-0 items-center gap-2">
+        <div class="flex items-center gap-2 px-4">
+          <SidebarTrigger class="-ml-1" />
+          <Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem class="hidden md:block">
+                <BreadcrumbLink href="/"> Dashboard </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator class="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>
+                  <slot name="breadcrumb">Current Page</slot>
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </header>
+      <main class="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <router-view />
+      </main>
+    </SidebarInset>
+  </SidebarProvider>
 </template>
 
 <style scoped>

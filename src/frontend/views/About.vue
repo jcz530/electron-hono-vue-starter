@@ -4,7 +4,7 @@ import Button from '../components/ui/button/Button.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 
 const appInfo = ref({
-  name: 'Barnacles',
+  name: 'Electron Vue App',
   version: '1.0.0',
   description: 'A modern Electron application built with Vue 3, Hono API, and TypeScript',
   features: [
