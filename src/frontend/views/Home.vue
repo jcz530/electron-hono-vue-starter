@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import Button from '../components/ui/button/Button.vue';
 import { useQueries } from '../composables/useQueries';
+import UsersTable from '../components/organisms/UsersTable.vue';
 
 const { useHelloQuery, useUsersQuery, useHealthQuery } = useQueries();
 
@@ -18,9 +19,7 @@ const error = computed(
   () => helloQuery.error.value || usersQuery.error.value || healthQuery.error.value
 );
 
-const apiResponse = computed(
-  () => helloQuery.data.value || usersQuery.data.value || healthQuery.data.value
-);
+const apiResponse = computed(() => helloQuery.data.value || healthQuery.data.value);
 
 const fetchHello = () => helloQuery.refetch();
 const fetchUsers = () => usersQuery.refetch();
@@ -57,6 +56,11 @@ const clearError = () => {
         <h3>API Response:</h3>
         <pre>{{ JSON.stringify(apiResponse, null, 2) }}</pre>
       </div>
+    </section>
+
+    <section class="users-table-section mt-8">
+      <h2 class="mb-4 text-2xl">Users</h2>
+      <UsersTable :users="usersQuery.data.value || []" :is-loading="usersQuery.isFetching.value" />
     </section>
   </div>
 </template>
