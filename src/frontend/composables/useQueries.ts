@@ -16,10 +16,11 @@ export const useQueries = () => {
   };
 
   // Users API query
-  const useUsersQuery = () => {
+  const useUsersQuery = (options?: { enabled?: boolean }) => {
     return useQuery({
       queryKey: ['users'],
       queryFn: () => apiCall<User[]>('GET', API_ROUTES.USERS),
+      enabled: options?.enabled ?? false, // Manual trigger by default
     });
   };
 

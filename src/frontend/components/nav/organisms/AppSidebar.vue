@@ -1,18 +1,6 @@
 <script setup lang="ts">
 import type { SidebarProps } from '@/components/ui/sidebar';
 
-import {
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  SquareTerminal,
-} from 'lucide-vue-next';
 import NavMain from '@/components/nav/molecules/NavMain.vue';
 import NavProjects from '@/components/nav/molecules/NavProjects.vue';
 import NavSecondary from '@/components/nav/molecules/NavSecondary.vue';
@@ -26,6 +14,16 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import {
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  LifeBuoy,
+  Send,
+  Settings2,
+  SquareTerminal,
+} from 'lucide-vue-next';
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'inset',
@@ -39,66 +37,20 @@ const data = {
   },
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
+      title: 'Dashboard',
+      url: '/',
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Users',
+      url: '/users',
       icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
     },
     {
-      title: 'Documentation',
-      url: '#',
+      title: 'API',
+      url: '/api',
       icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
     },
     {
       title: 'Settings',
@@ -138,19 +90,9 @@ const data = {
   ],
   projects: [
     {
-      name: 'Design Engineering',
+      name: 'Other Section',
       url: '#',
       icon: Frame,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
     },
   ],
 };

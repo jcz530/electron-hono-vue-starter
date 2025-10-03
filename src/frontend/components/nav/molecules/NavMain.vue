@@ -4,7 +4,6 @@ import { ChevronRight } from 'lucide-vue-next';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
@@ -30,7 +29,7 @@ defineProps<{
 
 <template>
   <SidebarGroup>
-    <SidebarGroupLabel>Platform</SidebarGroupLabel>
+    <!-- <SidebarGroupLabel>Main</SidebarGroupLabel> -->
     <SidebarMenu>
       <Collapsible v-for="item in items" :key="item.title" as-child :default-open="item.isActive">
         <SidebarMenuItem>

@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
+import Users from '@/views/Users.vue';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import DefaultLayout from '../layouts/DefaultLayout.vue';
+import Api from '../views/Api.vue';
 import Home from '../views/Home.vue';
-import About from '../views/About.vue';
 
 const routes = [
   {
@@ -14,9 +15,14 @@ const routes = [
         component: Home,
       },
       {
-        path: '/about',
-        name: 'About',
-        component: About,
+        path: '/api',
+        name: 'API',
+        component: Api,
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        component: Users,
       },
     ],
   },
