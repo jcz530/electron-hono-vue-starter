@@ -104,7 +104,7 @@ const data = {
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton size="lg" as-child>
-            <a href="#">
+            <RouterLink to="/">
               <div
                 class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
               >
@@ -114,7 +114,7 @@ const data = {
                 <span class="truncate font-medium">Acme Inc</span>
                 <span class="truncate text-xs">Enterprise</span>
               </div>
-            </a>
+            </RouterLink>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

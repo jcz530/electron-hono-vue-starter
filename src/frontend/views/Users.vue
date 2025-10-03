@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useBreadcrumbs } from '@/composables/useBreadcrumbs';
+import { onMounted, ref } from 'vue';
 import ViewToggle from '../components/atoms/ViewToggle.vue';
 import UsersTable from '../components/organisms/UsersTable.vue';
 import { useQueries } from '../composables/useQueries';
 
+const { setBreadcrumbs } = useBreadcrumbs();
+
+onMounted(() => {
+  setBreadcrumbs([{ label: 'Users' }]);
+});
 const { useUsersQuery } = useQueries();
 const viewMode = ref<'table' | 'card'>('table');
 

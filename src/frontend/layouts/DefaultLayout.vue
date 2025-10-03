@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '../components/ui/breadcrumb';
-import { Separator } from '../components/ui/separator';
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '../components/ui/sidebar';
+import NavBreadcrumbs from '@/components/nav/molecules/NavBreadcrumbs.vue';
+import { provideBreadcrumbs } from '@/composables/useBreadcrumbs';
 import AppSidebar from '../components/nav/organisms/AppSidebar.vue';
+import { Separator } from '../components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '../components/ui/sidebar';
+
+provideBreadcrumbs();
 </script>
 
 <template>
@@ -20,19 +16,7 @@ import AppSidebar from '../components/nav/organisms/AppSidebar.vue';
         <div class="flex items-center gap-2 px-4">
           <SidebarTrigger class="-ml-1" />
           <Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem class="hidden md:block">
-                <BreadcrumbLink href="/"> Dashboard </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator class="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>
-                  <slot name="breadcrumb">Current Page</slot>
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <NavBreadcrumbs />
         </div>
       </header>
       <main class="flex flex-1 flex-col gap-4 p-4 pt-0">

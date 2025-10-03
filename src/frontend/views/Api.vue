@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { useBreadcrumbs } from '@/composables/useBreadcrumbs';
+import { onMounted } from 'vue';
 import Button from '../components/ui/button/Button.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { useQueries } from '../composables/useQueries';
 
+const { setBreadcrumbs } = useBreadcrumbs();
+
+onMounted(() => {
+  setBreadcrumbs([{ label: 'API' }]);
+});
 const { useHelloQuery, useUsersQuery, useHealthQuery } = useQueries();
 
 const helloQuery = useHelloQuery();
