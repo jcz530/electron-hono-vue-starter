@@ -14,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useConfigs } from '@/composables/useConfigs';
 import {
   BookOpen,
   Bot,
@@ -28,6 +29,7 @@ import {
 const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'inset',
 });
+const configs = useConfigs();
 
 const data = {
   user: {
@@ -111,8 +113,8 @@ const data = {
                 <Command class="size-4" />
               </div>
               <div class="grid flex-1 text-left text-sm leading-tight">
-                <span class="truncate font-medium">Acme Inc</span>
-                <span class="truncate text-xs">Enterprise</span>
+                <span class="truncate font-medium">{{ configs.appName }}</span>
+                <span class="truncate text-xs">Vue + Hono</span>
               </div>
             </RouterLink>
           </SidebarMenuButton>
