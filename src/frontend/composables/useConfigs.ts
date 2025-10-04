@@ -4,6 +4,6 @@ interface AppConfig {
 
 export function useConfigs(): AppConfig {
   return {
-    appName: import.meta.env.VITE_APP_NAME || 'Barnacles',
+    appName: import.meta.env.VITE_APP_NAME || 'My App',
   };
 }
