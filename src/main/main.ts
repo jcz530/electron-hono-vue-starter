@@ -1,8 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import started from 'electron-squirrel-startup';
 import { startServer } from '../backend/server';
-import { createWindow } from './window-manager';
 import { setupIPC } from './ipc';
+import { createWindow } from './window-manager';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (started) {
@@ -20,8 +20,8 @@ const initialize = async (): Promise<void> => {
     // Setup IPC communication
     setupIPC();
 
-    // Create the main window
-    mainWindow = await createWindow();
+    // Create the main window with the actual API port for CSP
+    mainWindow = await createWindow(serverInfo.port);
 
     console.log('🚀 Application initialized successfully');
     console.log(`📡 API available at ${serverInfo.baseUrl}`);
